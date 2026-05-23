@@ -25,8 +25,8 @@ export default function Home() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       setResult(data);
-    } catch (err) {
-      setError(err.message || "Something went wrong.");
+   } catch (err) {
+  setError((err as Error).message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
