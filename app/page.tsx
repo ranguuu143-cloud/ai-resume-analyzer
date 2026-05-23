@@ -54,125 +54,142 @@ export default function Home() {
     : "text-gray-500";
 
   return (
-    <main className="min-h-screen bg-gray-50 py-10 px-4">
-      <div className="max-w-5xl mx-auto">
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-10 px-4">
 
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-2">
-          AI Resume Analyzer
-        </h1>
+      <div className="max-w-6xl mx-auto">
 
-        <p className="text-center text-gray-500 mb-8">
-          Paste your resume and job description to get AI-powered analysis
-        </p>
+        <div className="bg-white shadow-2xl rounded-3xl p-8">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <h1 className="text-5xl font-extrabold text-center text-gray-900 mb-3">
+            AI Resume Analyzer
+          </h1>
 
-          <div>
-            <label className="block font-semibold text-gray-700 mb-2">
-              Resume
-            </label>
-
-            <textarea
-              className="w-full h-64 border border-gray-300 rounded-lg p-3"
-              placeholder="Paste your resume..."
-              value={resumeText}
-              onChange={(e) => setResumeText(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block font-semibold text-gray-700 mb-2">
-              Job Description
-            </label>
-
-            <textarea
-              className="w-full h-64 border border-gray-300 rounded-lg p-3"
-              placeholder="Paste job description..."
-              value={jobDesc}
-              onChange={(e) => setJobDesc(e.target.value)}
-            />
-          </div>
-
-        </div>
-
-        {error && (
-          <p className="text-red-500 text-center mb-4">
-            {error}
+          <p className="text-center text-gray-700 text-lg mb-10">
+            Compare your resume with job descriptions using AI-powered analysis
           </p>
-        )}
 
-        <div className="text-center mb-8">
-          <button
-            onClick={analyze}
-            disabled={loading}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold"
-          >
-            {loading ? "Analyzing..." : "Analyze Resume"}
-          </button>
-        </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
 
-        {result && (
-          <div className="bg-white shadow-lg rounded-xl p-6">
+            <div>
+              <label className="block text-lg font-bold text-gray-800 mb-3">
+                Your Resume
+              </label>
 
-            <div className="text-center mb-8">
-
-              <p className="text-gray-500 uppercase text-sm">
-                Match Score
-              </p>
-
-              <p className={`text-6xl font-bold ${scoreColor}`}>
-                {result.matchScore}%
-              </p>
-
-              <p className="text-gray-600 mt-3">
-                {result.summary}
-              </p>
-
+              <textarea
+                className="w-full h-72 border-2 border-gray-300 rounded-2xl p-4 text-gray-900 bg-white text-sm focus:outline-none focus:ring-4 focus:ring-blue-300"
+                placeholder="Paste your resume here..."
+                value={resumeText}
+                onChange={(e) => setResumeText(e.target.value)}
+              />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-lg font-bold text-gray-800 mb-3">
+                Job Description
+              </label>
 
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h2 className="font-bold text-green-700 mb-2">
-                  ✅ Strengths
-                </h2>
-
-                <ul className="space-y-2 text-sm">
-                  {result.strengths?.map((item: string, index: number) => (
-                    <li key={index}>• {item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="bg-red-50 p-4 rounded-lg">
-                <h2 className="font-bold text-red-700 mb-2">
-                  ❌ Missing Skills
-                </h2>
-
-                <ul className="space-y-2 text-sm">
-                  {result.missingSkills?.map((item: string, index: number) => (
-                    <li key={index}>• {item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h2 className="font-bold text-blue-700 mb-2">
-                  💡 Suggestions
-                </h2>
-
-                <ul className="space-y-2 text-sm">
-                  {result.suggestions?.map((item: string, index: number) => (
-                    <li key={index}>• {item}</li>
-                  ))}
-                </ul>
-              </div>
-
+              <textarea
+                className="w-full h-72 border-2 border-gray-300 rounded-2xl p-4 text-gray-900 bg-white text-sm focus:outline-none focus:ring-4 focus:ring-indigo-300"
+                placeholder="Paste job description here..."
+                value={jobDesc}
+                onChange={(e) => setJobDesc(e.target.value)}
+              />
             </div>
+
           </div>
-        )}
+
+          {error && (
+            <div className="bg-red-100 border border-red-300 text-red-700 p-4 rounded-xl text-center mb-6 font-medium">
+              {error}
+            </div>
+          )}
+
+          <div className="text-center mb-10">
+
+            <button
+              onClick={analyze}
+              disabled={loading}
+              className="bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white text-lg font-bold px-10 py-4 rounded-2xl shadow-lg transition-all duration-300 disabled:opacity-50"
+            >
+              {loading ? "Analyzing..." : "Analyze Resume"}
+            </button>
+
+          </div>
+
+          {result && (
+
+            <div className="bg-gray-50 rounded-3xl shadow-inner p-8">
+
+              <div className="text-center mb-10">
+
+                <p className="text-gray-600 uppercase tracking-wider text-sm font-semibold">
+                  Match Score
+                </p>
+
+                <p className={`text-7xl font-extrabold ${scoreColor}`}>
+                  {result.matchScore}%
+                </p>
+
+                <p className="text-gray-800 text-lg mt-4 leading-relaxed max-w-3xl mx-auto font-medium">
+                  {result.summary}
+                </p>
+
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <div className="bg-green-100 border border-green-300 rounded-2xl p-6 shadow-sm">
+
+                  <h2 className="text-2xl font-bold text-green-800 mb-4">
+                    ✅ Strengths
+                  </h2>
+
+                  <ul className="space-y-3 text-gray-900 text-sm font-medium leading-relaxed">
+                    {result.strengths?.map((item: string, index: number) => (
+                      <li key={index}>• {item}</li>
+                    ))}
+                  </ul>
+
+                </div>
+
+                <div className="bg-red-100 border border-red-300 rounded-2xl p-6 shadow-sm">
+
+                  <h2 className="text-2xl font-bold text-red-800 mb-4">
+                    ❌ Missing Skills
+                  </h2>
+
+                  <ul className="space-y-3 text-gray-900 text-sm font-medium leading-relaxed">
+                    {result.missingSkills?.map((item: string, index: number) => (
+                      <li key={index}>• {item}</li>
+                    ))}
+                  </ul>
+
+                </div>
+
+                <div className="bg-blue-100 border border-blue-300 rounded-2xl p-6 shadow-sm">
+
+                  <h2 className="text-2xl font-bold text-blue-800 mb-4">
+                    💡 Suggestions
+                  </h2>
+
+                  <ul className="space-y-3 text-gray-900 text-sm font-medium leading-relaxed">
+                    {result.suggestions?.map((item: string, index: number) => (
+                      <li key={index}>• {item}</li>
+                    ))}
+                  </ul>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          )}
+
+        </div>
 
       </div>
+
     </main>
   );
 }
